@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://code.alibabatech.com/schema/dubbo
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <dubbo:application name="zheng-jvm-rpc-service"/>
+
+    <dubbo:registry address="zookeeper://172.16.159.132:2181?backup=172.16.159.131:2181,172.16.133:2181"/>
+
+    <dubbo:protocol name="dubbo" port="20880"/>
+
+    <!--<dubbo:monitor protocol="registry"/>-->
+
+    <bean id="userService" class="com.zheng.test.rpc.service.impl.UserServiceImpl"/>
+    <dubbo:service interface="com.zheng.test.rpc.api.UserService" ref="userService" timeout="10000"/>
+
+    <bean id="demoService" class="com.zheng.test.rpc.service.impl.DemoServiceImpl"/>
+    <dubbo:service interface="com.zheng.test.rpc.api.DemoService" ref="demoService" timeout="10000"/>
+
+</beans>
